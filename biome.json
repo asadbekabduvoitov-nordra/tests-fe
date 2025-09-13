@@ -1,0 +1,47 @@
+{
+  "linter": {
+    "enabled": false,
+    "rules": {
+      "recommended": false,
+      "correctness": {
+        "noConstAssign": "error",
+        "noEmptyPattern": "error",
+        "noSelfAssign": "error",
+        "noStringCaseMismatch": "error",
+        "noUnusedImports": "error",
+        "useHookAtTopLevel": "error",
+        "useIsNan": "error",
+        "useValidForDirection": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noBarrelFile": "error",
+        "noDelete": "error",
+        "noReExportAll": "error"
+      },
+      "security": {
+        "noGlobalEval": "error"
+      },
+      "suspicious": {
+        "noApproximativeNumericConstant": "error",
+        "noConsole": {
+          "options": {
+            "allow": ["info", "error"]
+          }
+        }
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "jsxQuoteStyle": "double"
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  }
+}
