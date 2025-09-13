@@ -76,7 +76,7 @@ export const Tests = () => {
                 timeRemaining
             };
         });
-    }, []);
+    }, [timeRemaining]);
 
     // Timer effect
     useEffect(() => {
