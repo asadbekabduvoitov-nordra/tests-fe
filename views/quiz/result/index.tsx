@@ -8,13 +8,11 @@ import { Progress } from "@/components/ui/progress";
 import {
     CheckCircle,
     XCircle,
-    Loader2,
     Trophy,
     RotateCcw,
     Home,
 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import { cn, formatTime, TEST_DURATION } from "@/lib/utils";
 import { Loading } from "../loading";
@@ -26,15 +24,32 @@ export const Result = () => {
         quiz: { data: quiz },
     } = useQuizCache();
     const { telegram_id, quiz_id } = useParams();
-    const { push } = useRouter();
 
     const correctAnswers = useMemo(() => {
-        return tests?.filter((t) => t.selectedOption?.variant !== t.correct_answer).length || 0;
+        return tests?.filter((t) => t.selectedOption?.variant === t.correct_answer).length || 0;
     }, [tests]);
 
     const scorePercentage = useMemo(() => {
         return tests?.length ? (correctAnswers / tests?.length) * 100 : 0;
     }, [correctAnswers, tests]);
+
+    const totalScore = useMemo(() => correctAnswers * 2, [correctAnswers]);
+
+    const categoryMessage = useMemo(() => {
+        if (totalScore < 60) {
+            return "Afsuski, siz testdan o'ta olmadingiz.";
+        }
+        if (totalScore >= 60 && totalScore <= 68) {
+            return "Tabriklaymiz siz 2- toifaga o'tdingiz.";
+        }
+        if (totalScore >= 70 && totalScore <= 78) {
+            return "Tabriklaymiz siz 1- toifaga o'tdingiz.";
+        }
+        if (totalScore >= 80 && totalScore <= 100) {
+            return "Tabriklaymiz siz OLIY TOIFA va 70 foizlik ustama sohibi bo'ldingiz.";
+        }
+        return "";
+    }, [totalScore]);
 
 
     if (isLoading) {
@@ -99,6 +114,14 @@ export const Result = () => {
                             </div>
 
                             <Progress value={scorePercentage} className="h-3 mb-6" />
+
+                            <div className="w-full mb-8">
+                                <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-6">
+                                    <div className="text-sm text-purple-600 dark:text-purple-300">
+                                        {categoryMessage}
+                                    </div>
+                                </div>
+                            </div>
                         </CardContent>
                     </Card>
                 </motion.div>
@@ -114,18 +137,7 @@ export const Result = () => {
                         <CardContent className="p-6">
                             <div className="space-y-4">
                                 {tests?.map((t, index) => {
-                                    // const ans = progress.answers[index];
                                     const isCorrect = t.selectedOption?.variant === t.correct_answer;
-                                    // const correctIndex = getCorrectIndex(t);
-                                    // const selectedLabel =
-                                    //     ans?.selectedAnswer !== null &&
-                                    //         ans?.selectedAnswer !== undefined
-                                    //         ? getOptionLabel(t.options[ans.selectedAnswer!])
-                                    //         : "Tanlanmagan";
-                                    // const correctLabel =
-                                    //     correctIndex !== null && correctIndex !== undefined
-                                    //         ? getOptionLabel(t.options[correctIndex])
-                                    //         : "Noma'lum";
 
                                     return (
                                         <motion.div

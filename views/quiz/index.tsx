@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Clock, Play, FileText, Zap } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { TEST_MIN } from "@/lib/utils";
 
 export const Quiz = () => {
     const { quiz: { data: quiz, isLoading, isError } } = useQuizCache()
@@ -62,7 +63,7 @@ export const Quiz = () => {
                                 <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 dark:from-cyan-900/30 dark:to-cyan-800/30 rounded-xl p-6 text-center">
                                     <Clock className="w-8 h-8 text-cyan-600 dark:text-cyan-400 mx-auto mb-2" />
                                     <div className="text-2xl font-bold text-cyan-900 dark:text-cyan-100">
-                                        15 daq
+                                        {TEST_MIN} daq
                                     </div>
                                     <div className="text-sm text-cyan-600 dark:text-cyan-300">
                                         Vaqt

@@ -11,4 +11,6 @@ export const formatTime = (seconds: number) => {
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 };
 
-export const TEST_DURATION = 15 * 60;
+export const TEST_MIN = 120;
+
+export const TEST_DURATION = TEST_MIN * 60;

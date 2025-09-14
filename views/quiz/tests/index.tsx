@@ -141,9 +141,10 @@ export const Tests = () => {
                     >
                         <Card className="backdrop-blur-xl bg-white/70 dark:bg-slate-800/70 border-0 shadow-xl mb-6">
                             <CardContent className="p-8">
-                                <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-8 leading-relaxed">
-                                    {currentSelectedQuestion?.title || "Loading..."}
-                                </h2>
+                                <article
+                                    className="prose prose-lg dark:prose-invert"
+                                    dangerouslySetInnerHTML={{ __html: currentSelectedQuestion?.title || "Loading..." }}
+                                />
 
                                 <div className="space-y-4">
                                     {currentSelectedQuestion?.options?.map((option, index) => {
