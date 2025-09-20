@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useParams, useRouter } from "next/navigation";
 import { Clock, CheckCircle, XCircle } from "lucide-react";
-import { cn, formatTime } from "@/lib/utils";
+import { cn, formatTime, multipleChoiceLetters } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { TQuiz, TTest } from "@/types/quiz";
 import { TEST_DURATION } from "@/lib/utils";
@@ -179,7 +179,9 @@ export const Tests = () => {
                                                 )}
                                             >
                                                 <div className="flex items-center justify-between">
-                                                    <span className="text-lg">{option?.label}</span>
+                                                    <span className="text-lg">
+                                                        <div dangerouslySetInnerHTML={{ __html: `${multipleChoiceLetters[index]}) ${option?.label}` || "" }} />
+                                                    </span>
                                                     {hasAnswered && (
                                                         <div>
                                                             {/* Show check on correct option */}

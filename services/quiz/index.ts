@@ -9,7 +9,7 @@ export const useQuizCache = () => {
   const tests = useQuery({
     queryKey: [`tests/${quiz_id}`],
     queryFn: async () => {
-      const { data } = await supabase.from("tests").select("*").eq("quiz_id", String(quiz_id));
+      const { data } = await supabase.from("tests").select("*").eq("quiz_id", String(quiz_id)).order("order", { ascending: true });
 
       return data as TTest[];
     },

@@ -14,3 +14,5 @@ export const formatTime = (seconds: number) => {
 export const TEST_MIN = 120;
 
 export const TEST_DURATION = TEST_MIN * 60;
+
+export const multipleChoiceLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];

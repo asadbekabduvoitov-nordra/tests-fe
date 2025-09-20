@@ -119,6 +119,7 @@ export type Database = {
           id: string
           image_url: string | null
           options: Json
+          order: number
           quiz_id: string
           title: string
           updated_at: string | null
@@ -130,6 +131,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           options: Json
+          order?: number
           quiz_id: string
           title: string
           updated_at?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           options?: Json
+          order?: number
           quiz_id?: string
           title?: string
           updated_at?: string | null
