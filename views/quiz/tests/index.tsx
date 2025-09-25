@@ -10,10 +10,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useParams, useRouter } from "next/navigation";
 import { Clock, CheckCircle, XCircle } from "lucide-react";
-import { cn, formatTime, multipleChoiceLetters } from "@/lib/utils";
+import { cn, formatTime, multipleChoiceLetters, TEST_MIN } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { TQuiz, TTest } from "@/types/quiz";
-import { TEST_DURATION } from "@/lib/utils";
 
 export const Tests = () => {
     const queryClient = useQueryClient();
@@ -21,10 +20,20 @@ export const Tests = () => {
     const { quiz_id, telegram_id } = useParams();
     const {
         tests: { data: tests, isLoading, isError },
+        quiz: { data: quiz },
     } = useQuizCache();
 
-    const [timeRemaining, setTimeRemaining] = useState(TEST_DURATION);
+    const testDuration = useMemo(()=>{
+        return (quiz?.time ?? TEST_MIN) * 60;
+    },[quiz])
+
+    const [timeRemaining, setTimeRemaining] = useState(testDuration);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+    // Reset time remaining when quiz changes
+    useEffect(() => {
+        setTimeRemaining(testDuration);
+    }, [testDuration]);
 
     const progress = useMemo(() => {
         return ((currentQuestionIndex + 1) / Number(tests?.length)) * 100

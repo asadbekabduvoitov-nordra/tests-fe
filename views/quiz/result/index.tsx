@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
-import { cn, formatTime, TEST_DURATION } from "@/lib/utils";
+import { cn, formatTime, TEST_MIN } from "@/lib/utils";
 import { Loading } from "../loading";
 import { ErrorComponent } from "../error";
 
@@ -28,6 +28,10 @@ export const Result = () => {
     const correctAnswers = useMemo(() => {
         return tests?.filter((t) => t.selectedOption?.variant === t.correct_answer).length || 0;
     }, [tests]);
+
+      const testDuration = useMemo(()=>{
+            return (quiz?.time ?? TEST_MIN) * 60;
+        },[quiz])
 
     const scorePercentage = useMemo(() => {
         return tests?.length ? (correctAnswers / tests?.length) * 100 : 0;
@@ -105,7 +109,7 @@ export const Result = () => {
 
                                 <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-6">
                                     <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-                                        {formatTime(TEST_DURATION - (quiz?.timeRemaining || 0))}
+                                        {formatTime(testDuration - (quiz?.timeRemaining || 0))}
                                     </div>
                                     <div className="text-sm text-purple-600 dark:text-purple-300">
                                         Sarflangan Vaqt

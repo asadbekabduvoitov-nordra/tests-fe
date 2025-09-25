@@ -64,6 +64,7 @@ export type Database = {
           description: string | null
           id: string
           subject_id: string | null
+          time: number | null
           title: string
           updated_at: string | null
         }
@@ -72,6 +73,7 @@ export type Database = {
           description?: string | null
           id?: string
           subject_id?: string | null
+          time?: number | null
           title: string
           updated_at?: string | null
         }
@@ -80,6 +82,7 @@ export type Database = {
           description?: string | null
           id?: string
           subject_id?: string | null
+          time?: number | null
           title?: string
           updated_at?: string | null
         }
