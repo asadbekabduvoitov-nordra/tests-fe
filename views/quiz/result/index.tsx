@@ -163,9 +163,12 @@ export const Result = () => {
                                                             <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
                                                         )}
                                                     </div>
-                                                    <p className="text-slate-800 dark:text-slate-200 mb-3">
-                                                        {t.title}
-                                                    </p>
+                                                    <div className="mb-3">
+                                                        <article
+                                    className="prose prose-lg dark:prose-invert"
+                                    dangerouslySetInnerHTML={{ __html: t?.title || "Loading..." }}
+                                />
+                                                    </div>
                                                     <div className="space-y-2">
                                                         <div
                                                             className={cn("text-sm", {
