@@ -6,13 +6,12 @@ import { ErrorComponent } from "./error";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Clock, Play, FileText, Zap } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { Clock, Play, FileText, Zap, Loader } from "lucide-react";
+import { useQuizFeatures } from "./features";
 
 export const Quiz = () => {
     const { quiz: { data: quiz, isLoading, isError } } = useQuizCache()
-    const { push } = useRouter();
-    const { telegram_id, quiz_id } = useParams()
+    const { checkPermission: { mutate:checkPermission, isPending, isError: checkPermissionError } } = useQuizFeatures()
 
     if (isLoading) {
         return <Loading />
@@ -92,14 +91,36 @@ export const Quiz = () => {
                                 whileTap={{ scale: 0.98 }}
                             >
                                 <Button
-                                    onClick={() => push(`/${telegram_id}/${quiz_id}/test`)}
+                                    onClick={() => checkPermission()}
                                     size="lg"
+                                    disabled={isPending}
                                     className="w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                                 >
+                                    {
+                                        isPending ? <>
+                                        <Loader className="w-5 h-5 mr-2 animate-spin" />
+                                        Test Boshlanmoqda...
+                                        </> : 
+                                        <>
                                     <Play className="w-5 h-5 mr-2" />
                                     Testni Boshlash
+                                        </>
+                                    }
                                 </Button>
                             </motion.div>
+
+                            {/* Error Message */}
+                            {
+                                checkPermissionError && !isPending && (
+                                    <motion.div
+                                        initial="hidden"
+                                        animate="visible"
+                                        className="mt-4 text-center text-red-500"
+                                    >
+                                        Testga kirish uchun ruhsat berilmadi.
+                                    </motion.div>
+                                )
+                            }
                         </CardContent>
                     </Card>
                 </motion.div>
