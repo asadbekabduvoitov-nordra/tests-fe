@@ -17,11 +17,13 @@ import { useMemo } from "react";
 import { cn, formatTime, TEST_MIN } from "@/lib/utils";
 import { Loading } from "../loading";
 import { ErrorComponent } from "../error";
+import { hide_quiz_result_message } from "@/mock/quiz";
 
 export const Result = () => {
     const {
         tests: { data: tests, isLoading, isError },
         quiz: { data: quiz },
+        subject: { data: subject },
     } = useQuizCache();
     const { telegram_id, quiz_id } = useParams();
 
@@ -119,13 +121,17 @@ export const Result = () => {
 
                             <Progress value={scorePercentage} className="h-3 mb-6" />
 
-                            <div className="w-full mb-8">
-                                <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-6">
-                                    <div className="text-sm text-purple-600 dark:text-purple-300">
-                                        {categoryMessage}
+                            {
+                                !hide_quiz_result_message.includes(String(subject?.id)) ? (
+                                    <div className="w-full mb-8">
+                                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-6">
+                                            <div className="text-sm text-purple-600 dark:text-purple-300">
+                                                {categoryMessage}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                ) : null
+                            }
                         </CardContent>
                     </Card>
                 </motion.div>

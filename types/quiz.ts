@@ -11,3 +11,5 @@ export type TQuiz = Database["public"]["Tables"]["quizzes"]["Row"] & {
   tests: TTest[];
   timeRemaining?: number;
 }
+
+export type TSubject = Database["public"]["Tables"]["subjects"]["Row"];

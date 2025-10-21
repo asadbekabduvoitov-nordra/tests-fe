@@ -1,5 +1,5 @@
 import { supabase } from "@/configs/supabase";
-import { TQuiz, TTest } from "@/types/quiz";
+import { TQuiz, TSubject, TTest } from "@/types/quiz";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
@@ -28,5 +28,16 @@ export const useQuizCache = () => {
     staleTime: Infinity,
   });
 
-  return { tests, quiz };
+  const subject = useQuery({
+    queryKey: [`subject/${quiz_id}`],
+    queryFn: async () => {
+      const { data } = await supabase.from("subjects").select("*").eq("id", String(quiz?.data?.subject_id)).limit(1).single()
+
+      return data as TSubject;
+    },
+    enabled: !!quiz?.data,
+    staleTime: Infinity,
+  });
+
+  return { tests, quiz, subject };
 };
